@@ -1,0 +1,25 @@
+# Login credentials for the bot
+homeserver:
+  username: "@user:matrix.org"
+  password: "password"
+  server: "https://matrix.org"
+
+# Bot configuration
+config:
+  # Set what rooms the bot should join and respond in.
+  rooms:
+    - "#room_alias:matrix.org"
+    - "!room_id:matrix.org"
+
+  # Configure how the bot reacts with end users.
+  faq:
+    prefix: "!faq"
+    templates:
+      - name: "about"
+        value: |
+          matrix-faq   
+          Copyright (C) 2021 Hunter Wittenborn <hunter@hunterwittenborn.com\>   
+          This is free software; see the source for copying conditions.   
+          This program comes with ABSOLUTELY NO WARRENTY.
+
+          Source code available on GitHub: https://github.com/hwittenborn/matrix-faq
