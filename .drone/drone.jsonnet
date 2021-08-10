@@ -24,4 +24,3 @@ local publishDocker() = {
 [
     publishDocker()
 ]
- 
