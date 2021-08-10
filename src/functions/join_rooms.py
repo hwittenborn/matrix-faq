@@ -26,7 +26,7 @@ def join_rooms(access_token, homeserver, faq_rooms):
 				print(f"[Warning-M_FORBIDDEN]: Unable to join room '{i}'.")
 
 		except KeyError:
-			joined_rooms += [i]
+			joined_rooms += [returned_data["room_id"]]
 
 	# Quit if we were unable to join all rooms.
 	if len(joined_rooms) == 0:

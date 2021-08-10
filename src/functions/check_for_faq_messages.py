@@ -74,7 +74,7 @@ def check_for_faq_messages(access_token, homeserver, returned_data, faq_prefix, 
 							# Template was not found, so we bring up the error screen.
 							if template_found == False:
 
-								matrix_request["body"]            = "Couldn't find the requested FAQ template.\n"
+								matrix_request["body"]            = "Couldn't find the requested FAQ template.   \n"
 								matrix_request["body"]           += f"Available FAQ templates can be found with `{faq_prefix}`."
 								matrix_request["formatted_body"]  = markdown.markdown(matrix_request["body"])
 

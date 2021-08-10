@@ -14,12 +14,15 @@ config:
   # Configure how the bot reacts with end users.
   faq:
     prefix: "!faq"
+    # Specify a list of templates.
+    # 'name' is the command to be called (i.e. '!faq about'), and 'value'
+    # is the message (in Markdown) to be returned.
     templates:
       - name: "about"
         value: |
-          matrix-faq   
-          Copyright (C) 2021 Hunter Wittenborn <hunter@hunterwittenborn.com\>   
-          This is free software; see the source for copying conditions.   
+          matrix-faq
+          Copyright (C) 2021 Hunter Wittenborn <hunter@hunterwittenborn.com\>
+          This is free software; see the source for copying conditions.
           This program comes with ABSOLUTELY NO WARRENTY.
 
           Source code available on GitHub: https://github.com/hwittenborn/matrix-faq

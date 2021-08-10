@@ -1,9 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S -- python3 -u
 import os
 import requests
 import json
 import yaml
 import time
+import signal
 from sqlalchemy import create_engine, MetaData, Table, Column, String, select
 
 from functions.lint_config            import lint_config
@@ -12,6 +13,7 @@ from functions.check_login_state      import check_login_state
 from functions.batch_token            import get_batch_token, record_batch_token
 from functions.join_rooms             import join_rooms
 from functions.check_for_faq_messages import check_for_faq_messages
+from functions.sig_handler            import sig_handler
 
 # Make sure config file exists
 if os.path.isfile("./config.yaml") == False:
@@ -93,23 +95,27 @@ if len(joined_rooms) == 0:
 	print("[Error] Unable to join all specified rooms.")
 	quit(1)
 
-# Purge current message queue, as we might have a huge buildup of messages (which
-# we don't want to process).
+# Purge current message queue (by getting a new batch token), as we might have a
+# huge buildup of messages (which we don't want to process).
 print("[Info] Purging message queue...")
 batch_token = get_batch_token(conn, db_tables)
 
 returned_data = make_request(username=username,
 access_token=access_token,
 homeserver=homeserver,
-path=f"/sync?since={batch_token}")
+path=f"/sync")
 
 record_batch_token(returned_data["next_batch"], conn, db_tables)
+
+# Set up sigterm trap so we can exit gracefully
+signal.signal(signal.SIGTERM, sig_handler)
 
 # Go online
 print("[Info] Going online.")
 
 while True:
-	# Obtaining new messages
+
+	# Obtain new messages
 	batch_token = get_batch_token(conn, db_tables)
 
 	returned_data = make_request(username=username,
