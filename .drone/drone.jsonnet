@@ -2,6 +2,7 @@ local publishDocker() = {
     name: "docker-publish",
     kind: "pipeline",
     type: "docker",
+    trigger: {branch: ["main"]},
     volumes: [{name: "docker", host: {path: "/var/run/docker.sock"}}],
     steps: [
         {
