@@ -3,7 +3,7 @@
 #    docker build ./ -f docker/Dockerfile
 #
 
-FROM ubuntu:focal
+FROM ubuntu:jammy
 
 # Install needed dependencies
 RUN apt-get update
